@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<ul id="siyahi"></ul>
+<div class="container">
+    <ul class="pagination">
+        <li><a class="reqemler" href="#">1</a></li>
+        <li><a class="reqemler" href="#">2</a></li>
+        <li><a class="reqemler" href="#">3</a></li>
+    </ul>
+</div>
+<script>
+    let reqem
+    document.querySelectorAll(".reqemler").forEach(item => {
+        item.addEventListener("click", function () {
+            reqem = this.innerText
+            $.ajax({
+                type: "GET",
+                url: "Home/getTelebe",
+                data: { Id: `${reqem}` },
+                success: function (result) {
+                    console.log(result);
+                    siyahi.innerHTML = "";
+                    result.forEach(item => {
+                        siyahi.innerHTML += `<li style="color:antiquewhite">${item.ad}</li>`
+                    })
+                },
+                error: function () {
+                    alert("error")
+                },
+            })
+        })
+    })
+</script>
